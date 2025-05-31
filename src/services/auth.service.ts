@@ -1,6 +1,6 @@
 import axios from 'axios';
 import API from '../utils/axios'
-import type  { ILoginData, ILoginResponse, IRegisterData } from '../types/users.types';
+import type  { ChangePasswordRequest, ForgotPasswordRequest, ForgotPasswordResponse, ILoginData, ILoginResponse, IRegisterData, ResetPasswordRequest,  } from '../types/users.types';
 
 
 // Base URL de votre backend
@@ -36,6 +36,31 @@ export const logout = () => {
   // localStorage.removeItem('utilisateur'); // si tu stockes l’utilisateur aussi
 };
 
+
+
+// renitialisation du mot de passe
+export const forgotPassword = async (data: ForgotPasswordRequest) => {
+  const response = await API.post<ForgotPasswordResponse>('/auth/forgot-password', data);
+  return response.data;
+};
+
+
+
+
+export const resetPassword = async (
+  data: ResetPasswordRequest
+): Promise<ForgotPasswordResponse> => {
+  const response = await API.post<ForgotPasswordResponse>('/auth/reset-password', data);
+  return response.data;
+};
+
+
+export const changePassword = async (
+  data: ChangePasswordRequest
+): Promise<{ message: string }> => {
+  const res = await API.put('/auth/changer-mot-de-passe', data);
+  return res.data as { message: string };
+};
 
 
 
