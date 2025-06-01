@@ -1,17 +1,19 @@
-
 import React from "react";
-import PresentationSection from "@/components/apropos/PresentationSection";
-import ValeursSection from "@/components/apropos/ValeursSection";
-import VisionSection from "@/components/apropos/VisionSection";
-import TeamSection from "@/components/apropos/TeamSection";
+import PresentationSection from "../../components/apropos/PresentationSection";
+import ValeursSection from "../../components/apropos/ValeursSection";
+import VisionSection from "../../components/apropos/VisionSection";
+import Header from "../../components/Layout/Header";
+import Footer from "../../components/Layout/Footer";
+
 
 export default function AproposPage() {
   return (
-    <div className="min-h-screen p-8 space-y-20">
+    <div className="min-h-screen ">
+        <Header/>
       <PresentationSection />
-      <ValeursSection />
-      <VisionSection />
-      <TeamSection />
+      <ValeursSection   />
+      <VisionSection/>
+      <Footer />
     </div>
   );
 }

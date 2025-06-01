@@ -1,5 +1,5 @@
 import React from 'react';
-import { ETAPES } from '../../data/homeSteps';
+import { ETAPES } from '../../data/homeSteps.data';
 
 const CommentCaMarcheSection = () => {
   return (
