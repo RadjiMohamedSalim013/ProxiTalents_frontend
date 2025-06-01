@@ -25,7 +25,7 @@ export interface ILoginResponse {
 }
 
 export interface ForgotPasswordRequest {
-  email: string; // ✅ Corrigé ici
+  email: string; 
 }
 
 export interface ResetPasswordRequest {
