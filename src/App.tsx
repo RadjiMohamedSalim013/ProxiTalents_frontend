@@ -7,6 +7,8 @@ import { ResetPassword } from './pages/ResetPassword';
 import { ChangePassword } from './pages/ChangePassword';
 import AccueilPage from './pages/home';
 import AproposPage from './pages/apropos';
+import PageCreationPrestataire from './pages/prestataire/PageCreationPrestataire';
+import Prestataires from './pages/prestataire/Prestataires';
 
 
 
@@ -21,6 +23,11 @@ const App = () => (
 <Route path="/changer-mot-de-passe" element={<ChangePassword />} />
 <Route path="/home" element={<AccueilPage />} />
 <Route path="/a-propos" element={<AproposPage />} />
+<Route path="/a-propos" element={<AproposPage />} />
+<Route path="/creation" element={<PageCreationPrestataire />} />
+<Route path="/prestataires" element={<Prestataires />} />
+
+
 
 
 

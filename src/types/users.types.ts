@@ -1,3 +1,5 @@
+// src/types/index.ts
+
 export interface IRegisterData {
   nom: string;
   email: string;
@@ -14,6 +16,7 @@ export interface Utilisateur {
   _id: string;
   nom: string;
   email: string;
+  telephone?: string;
   role: 'utilisateur' | 'prestataire' | 'entreprise';
   createdAt: string;
   updatedAt: string;
@@ -36,7 +39,6 @@ export interface ResetPasswordRequest {
 export interface ForgotPasswordResponse {
   message: string;
 }
-
 
 export interface ChangePasswordRequest {
   email: string;
