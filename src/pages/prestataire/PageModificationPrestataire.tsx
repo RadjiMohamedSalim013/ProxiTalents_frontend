@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { createPrestataire } from '../../services/prestataire.service';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import type { IService, IReseaux } from '../../types/prestataire.types';
+import { getPrestataireById, updatePrestataire } from '../../services/prestataire.service';
 
-const PrestataireForm: React.FC = () => {
+const PageModificationPrestataire: React.FC = () => {
   const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+  console.log('PageModificationPrestataire - ID extrait:', id);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const [bio, setBio] = useState<string>('');
   const [zoneGeographique, setZoneGeographique] = useState<string>('');
@@ -18,18 +22,53 @@ const PrestataireForm: React.FC = () => {
     youtube: '',
     siteWeb: '',
   });
+  const [services, setServices] = useState<IService[]>([]);
 
-  const [services, setServices] = useState<IService[]>([
-    { nom: '', description: '', tarif: 0 },
-  ]);
+  useEffect(() => {
+    const fetchPrestataire = async () => {
+      try {
+        if (!id) {
+          setError('ID prestataire manquant');
+          setLoading(false);
+          return;
+        }
+        const found = await getPrestataireById(id);
+        console.log('PageModificationPrestataire - Prestataire récupéré:', found);
 
-  // Suppression complète de la variable medias pour éviter le type implicite any[]
+        if (found) {
+          setBio(found.bio || '');
+          setZoneGeographique(found.zoneGeographique || '');
+          setDisponibilite(found.disponibilite || '');
+          setTelephone(typeof found.userId === 'object' && found.userId !== null ? found.userId.telephone || '' : '');
+          setReseaux(found.reseaux || {
+            facebook: '',
+            instagram: '',
+            linkedin: '',
+            tiktok: '',
+            youtube: '',
+            siteWeb: '',
+          });
+          setServices(found.services || []);
+          setError(null);
+        } else {
+          setError('Profil prestataire non trouvé, redirection vers création...');
+          setTimeout(() => {
+            navigate('/creation-prestataire');
+          }, 2000);
+        }
+      } catch (error: unknown) {
+        let message = 'Erreur inconnue';
+        if (error instanceof Error) {
+          message = error.message;
+        }
+        setError(message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
-
-  const handleAddService = () => {
-    setServices([...services, { nom: '', description: '', tarif: 0 }]);
-  };
+    fetchPrestataire();
+  }, [id]);
 
   const handleServiceChange = (index: number, field: keyof IService, value: string | number) => {
     const updated = [...services];
@@ -41,50 +80,47 @@ const PrestataireForm: React.FC = () => {
     setServices(updated);
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedFiles(e.target.files);
+  const handleAddService = () => {
+    setServices([...services, { nom: '', description: '', tarif: 0 }]);
+  };
+
+  const handleRemoveService = (index: number) => {
+    const updated = [...services];
+    updated.splice(index, 1);
+    setServices(updated);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append('bio', bio);
-    formData.append('zoneGeographique', zoneGeographique);
-    formData.append('disponibilite', disponibilite);
-    formData.append('telephone', telephone);
+    const updatedPrestataire = {
+      bio,
+      zoneGeographique,
+      disponibilite,
+      telephone,
+      reseaux,
+      services,
+      id, // Ajout de l'id du prestataire pour la mise à jour
+    };
 
-    formData.append('reseaux[facebook]', reseaux.facebook || '');
-    formData.append('reseaux[instagram]', reseaux.instagram || '');
-    formData.append('reseaux[linkedin]', reseaux.linkedin || '');
-    formData.append('reseaux[tiktok]', reseaux.tiktok || '');
-    formData.append('reseaux[youtube]', reseaux.youtube || '');
-    formData.append('reseaux[siteWeb]', reseaux.siteWeb || '');
 
-      services.forEach((service, index) => {
-      formData.append(`services[${index}][nom]`, service.nom);
-      formData.append(`services[${index}][description]`, service.description || '');
-      formData.append(`services[${index}][tarif]`, (service.tarif ?? 0).toString());
-    });
-
-    if (selectedFiles) {
-      Array.from(selectedFiles).forEach((file) => {
-        formData.append('medias', file);
-      });
-    }
 
     try {
-      await createPrestataire(formData);
-      alert('Profil prestataire créé avec succès !');
-      navigate('/dashboard');
+      console.log('PageModificationPrestataire - Données envoyées pour mise à jour:', updatedPrestataire);
+      await updatePrestataire(updatedPrestataire as any);
+      alert('Profil prestataire mis à jour avec succès !');
+      navigate('/dashboard-prestataire');
     } catch (error: any) {
       alert(`Erreur : ${error.message}`);
     }
   };
 
+  if (loading) return <div>Chargement...</div>;
+  if (error) return <div className="text-red-600">{error}</div>;
+
   return (
-    <form onSubmit={handleSubmit} className="max-w-4xl mx-auto p-6 space-y-6" encType="multipart/form-data">
-      <h2 className="text-2xl font-bold mb-4">Créer un profil prestataire</h2>
+    <form onSubmit={handleSubmit} className="max-w-4xl mx-auto p-6 space-y-6">
+      <h2 className="text-2xl font-bold mb-4">Modifier le profil prestataire</h2>
 
       <textarea
         className="w-full border p-2"
@@ -109,7 +145,7 @@ const PrestataireForm: React.FC = () => {
         onChange={(e) => setDisponibilite(e.target.value)}
       />
       <input
-        className="w-full border p-2"
+        className="border p-2"
         placeholder="Téléphone (optionnel)"
         value={telephone}
         onChange={(e) => setTelephone(e.target.value)}
@@ -118,7 +154,7 @@ const PrestataireForm: React.FC = () => {
       <div className="space-y-4">
         <h3 className="text-lg font-semibold">Services</h3>
         {services.map((service, index) => (
-          <div key={index} className="grid grid-cols-3 gap-2">
+          <div key={index} className="grid grid-cols-4 gap-2">
             <input
               className="border p-2"
               placeholder="Nom"
@@ -130,9 +166,7 @@ const PrestataireForm: React.FC = () => {
               className="border p-2"
               placeholder="Description"
               value={service.description}
-              onChange={(e) =>
-                handleServiceChange(index, 'description', e.target.value)
-              }
+              onChange={(e) => handleServiceChange(index, 'description', e.target.value)}
               required
             />
             <input
@@ -143,6 +177,13 @@ const PrestataireForm: React.FC = () => {
               onChange={(e) => handleServiceChange(index, 'tarif', e.target.value)}
               required
             />
+            <button
+              type="button"
+              onClick={() => handleRemoveService(index)}
+              className="text-red-600 underline"
+            >
+              Supprimer
+            </button>
           </div>
         ))}
         <button
@@ -152,17 +193,6 @@ const PrestataireForm: React.FC = () => {
         >
           + Ajouter un service
         </button>
-      </div>
-
-      <div className="space-y-4">
-        <h3 className="text-lg font-semibold">Médias</h3>
-        <input
-          type="file"
-          multiple
-          accept="image/*,video/*"
-          onChange={handleFileChange}
-          className="border p-2 w-full"
-        />
       </div>
 
       <div className="grid grid-cols-3 gap-4">
@@ -208,10 +238,10 @@ const PrestataireForm: React.FC = () => {
         type="submit"
         className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
       >
-        Créer le profil
+        Enregistrer les modifications
       </button>
     </form>
   );
 };
 
-export default PrestataireForm;
+export default PageModificationPrestataire;
