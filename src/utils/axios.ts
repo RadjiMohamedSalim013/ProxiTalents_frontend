@@ -18,7 +18,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:3000/api/', 
+  baseURL: 'https://proxitalents-backend.onrender.com/api/', 
 });
 
 // Intercepteur pour ajouter automatiquement le token aux headers

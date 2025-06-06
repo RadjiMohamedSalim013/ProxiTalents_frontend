@@ -1,17 +1,12 @@
-import axios from 'axios';
 import API from '../utils/axios'
 import type  { ChangePasswordRequest, ForgotPasswordRequest, ForgotPasswordResponse, ILoginData, ILoginResponse, IRegisterData, ResetPasswordRequest, IRegisterInput } from '../types/users.types';
-
-
-// Base URL de votre backend
-const API_URL = 'http://localhost:3000/api/auth';
 
 
 // Fonction pour enregistrer un nouvel utilisateur
 export const register = async (data: IRegisterInput) => {
   // Ajouter le rôle par défaut 'utilisateur' avant d'envoyer les données
   const dataWithRole: IRegisterData = { ...data, role: 'utilisateur' };
-  const response = await axios.post(`${API_URL}/register`, dataWithRole);
+  const response = await API.post(`/auth/register`, dataWithRole);
   console.log(response.data)
   return response.data;
 };
@@ -20,7 +15,7 @@ export const register = async (data: IRegisterInput) => {
 // Fonction pour connecter un utilisateur
 
 export const login = async (data: ILoginData): Promise<ILoginResponse> => {
-  const response = await API.post<ILoginResponse>('auth/login', data);
+  const response = await API.post<ILoginResponse>('/auth/login', data);
   
   const token = response.data.token;
   if (token) {
