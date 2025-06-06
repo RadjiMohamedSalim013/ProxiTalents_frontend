@@ -1,6 +1,3 @@
-// src/pages/Accueil/index.tsx
-import React from 'react';
-
 import HeroSection from '../../components/home/HeroSection';
 import AProposSection from '../../components/home/ApercuAproposSection';
 import CategoriesServicesSection from '../../components/home/CategoriesServicesSection';

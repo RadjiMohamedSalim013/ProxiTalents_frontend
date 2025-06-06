@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { createEntreprise } from '../../services/entreprise.service';
 import type { IEntreprise } from '../../types/entreprise.types';
 
+// IEntreprise est importé mais non utilisé, suppression de l'import si non utilisé
+
 const FormulaireEntreprise: React.FC = () => {
   const navigate = useNavigate();
 

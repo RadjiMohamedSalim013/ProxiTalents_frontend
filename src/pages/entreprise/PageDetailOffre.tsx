@@ -29,7 +29,14 @@ const PageDetailOffre: React.FC = () => {
       }
       try {
         const data = await getOffreById(id);
-        setOffre(data);
+        setOffre(data as {
+          _id: string; 
+          titre: string; 
+          description: string; 
+          entrepriseId: string;
+          createdAt?: string;
+          competencesRequises?: string[];
+        } | null);
         setError(null);
       } catch {
         setError('Erreur lors de la récupération de l\'offre');
