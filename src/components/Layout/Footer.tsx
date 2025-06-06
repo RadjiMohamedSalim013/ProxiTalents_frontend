@@ -66,7 +66,7 @@ const Footer = () => {
         {/* Copyright */}
         <div className="border-t border-slate-700 mt-12 pt-6 text-center text-sm">
           <p>&copy; {new Date().getFullYear()} ProxiTalents - Tous droits réservés</p>
-          <p className="mt-2">Made with ❤️ in France</p>
+          <p className="mt-2">Made with  in CIV</p>
         </div>
       </div>
     </footer>

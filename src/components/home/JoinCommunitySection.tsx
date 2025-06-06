@@ -1,4 +1,3 @@
-import React from 'react';
 import { FaWhatsapp, FaUsers, FaHandsHelping } from 'react-icons/fa';
 
 const JoinCommunitySection = () => {

@@ -1,7 +1,7 @@
 import type React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Home, Briefcase, FileText, BookOpen, User, LogIn, LogOut, UserPlus, Menu } from 'lucide-react';
-import { FiInfo, FiUsers, FiAward } from "react-icons/fi";
+import { FiUsers } from "react-icons/fi";
 
 
 const Header = () => {
@@ -18,7 +18,7 @@ const Header = () => {
       <nav className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo + Nom */}
         <Link 
-          to="/home" 
+          to="/" 
           className="flex items-center gap-2 group"
         >
           <div className="bg-amber-500 p-2 rounded-lg group-hover:rotate-12 transition-transform">

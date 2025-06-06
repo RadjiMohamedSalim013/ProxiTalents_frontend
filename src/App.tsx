@@ -27,6 +27,7 @@ import Offres from './pages/entreprise/Offres';
 
 import Header from './components/Layout/Header';
 import Footer from './components/Layout/Footer';
+import NotFoundPage from './pages/NotFoundPage';
 
 const App = () => (
   <BrowserRouter>
@@ -56,6 +57,7 @@ const App = () => (
       <Route path="/offres" element={<Offres />} />
       <Route path="/articles" element={<ArticlesPage />} />
       <Route path="/articles/:id" element={<ArticleDetailPage />} />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
     <Footer />
   </BrowserRouter>

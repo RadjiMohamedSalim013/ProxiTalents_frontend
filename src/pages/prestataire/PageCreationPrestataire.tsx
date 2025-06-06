@@ -1,4 +1,3 @@
-import React from 'react';
 import PrestataireForm from '../../components/prestataire/FormulairePrestataire';
 
 const PageCreationPrestataire = () => {

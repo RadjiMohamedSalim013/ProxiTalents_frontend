@@ -1,4 +1,3 @@
-import React from 'react';
 import PrestataireList from '../../components/prestataire/PrestataireList';
 
 const Prestataires = () => {
