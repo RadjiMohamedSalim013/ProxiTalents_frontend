@@ -14,6 +14,17 @@ import PageDashboardPrestataire from './pages/prestataire/PageDashboardPrestatai
 import PageModificationPrestataire from './pages/prestataire/PageModificationPrestataire';
 import FormulaireService from './components/prestataire/FormulaireService';
 
+import PageCreationEntreprise from './pages/entreprise/PageCreationEntreprise';
+import PageModificationEntreprise from './pages/entreprise/PageModificationEntreprise';
+import PageDashboardEntreprise from './pages/entreprise/PageDashboardEntreprise';
+import Entreprises from './pages/entreprises/Entreprises';
+import PageGestionOffres from './pages/entreprise/PageGestionOffres';
+import PageCreationOffre from './pages/entreprise/PageCreationOffre';
+import PageDetailOffre from './pages/entreprise/PageDetailOffre';
+import ArticlesPage from './pages/ArticlesPage';
+import ArticleDetailPage from './pages/ArticleDetailPage';
+import Offres from './pages/entreprise/Offres';
+
 const App = () => (
   <BrowserRouter>
     <Routes>
@@ -31,9 +42,18 @@ const App = () => (
       <Route path="/dashboard-prestataire" element={<PageDashboardPrestataire />} />
       <Route path="/prestataire/modification/:id" element={<PageModificationPrestataire />} />
       <Route path="/prestataire/ajout-service/:id" element={<FormulaireService />} />
+      <Route path="/creation-entreprise" element={<PageCreationEntreprise />} />
+      <Route path="/modification-entreprise/:id" element={<PageModificationEntreprise />} />
+      <Route path="/dashboard-entreprise" element={<PageDashboardEntreprise />} />
+      <Route path="/entreprises" element={<Entreprises />} />
+      <Route path="/gestion-offres" element={<PageGestionOffres />} />
+      <Route path="/creation-offre" element={<PageCreationOffre />} />
+      <Route path="/offre/:id" element={<PageDetailOffre />} />
+      <Route path="/offres" element={<Offres />} />
+      <Route path="/articles" element={<ArticlesPage />} />
+      <Route path="/articles/:id" element={<ArticleDetailPage />} />
     </Routes>
   </BrowserRouter>
 );
-
 
 export default App;

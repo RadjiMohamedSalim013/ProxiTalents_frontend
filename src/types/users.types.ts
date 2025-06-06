@@ -1,10 +1,15 @@
-// src/types/index.ts
 
 export interface IRegisterData {
   nom: string;
   email: string;
   motDepasse: string;
   role: 'utilisateur' | 'prestataire' | 'entreprise';
+}
+
+export interface IRegisterInput {
+  nom: string;
+  email: string;
+  motDePasse: string;
 }
 
 export interface ILoginData {

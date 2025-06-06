@@ -76,7 +76,7 @@ const PrestataireForm: React.FC = () => {
     try {
       await createPrestataire(formData);
       alert('Profil prestataire créé avec succès !');
-      navigate('/dashboard');
+      navigate('/dashboard-prestataire');
     } catch (error: any) {
       alert(`Erreur : ${error.message}`);
     }

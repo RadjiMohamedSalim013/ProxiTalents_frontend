@@ -6,9 +6,21 @@ const API_URL = 'http://localhost:3000/api/prestataires';
 export const getPrestataires = async (): Promise<IPrestataire[]> => {
   try {
     const token = localStorage.getItem('token');
+    /**
+     * Represents the response object returned from the fetch API call to the backend.
+     * This object contains the status, headers, and methods to access the response body.
+     */
+    /**
+     * Envoie une requête HTTP à l'URL spécifiée avec un en-tête d'autorisation Bearer si un jeton est fourni.
+     * 
+     * @param API_URL - L'URL de l'API à laquelle envoyer la requête.
+     * @param token - Le jeton d'authentification à inclure dans l'en-tête Authorization. Si aucun jeton n'est fourni, l'en-tête sera vide.
+     * @returns Une promesse contenant la réponse de la requête fetch.
+     */
+    
     const response = await fetch(API_URL, {
       headers: {
-        Authorization: token ? `Bearer ${token}` : '',
+      Authorization: token ? `Bearer ${token}` : '',
       },
     });
     if (!response.ok) {
@@ -20,6 +32,8 @@ export const getPrestataires = async (): Promise<IPrestataire[]> => {
     throw error;
   }
 };
+
+
 
 // Récupérer un prestataire par son ID
 export const getPrestataireById = async (id: string): Promise<IPrestataire | null> => {

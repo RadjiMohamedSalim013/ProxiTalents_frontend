@@ -23,16 +23,8 @@ export const Login = () => {
       // Extraire le rôle
       const role = res.utilisateur.role;
 
-      // Rediriger selon le rôle
-      if (role === 'utilisateur') {
-        navigate('/dashboard/utilisateur');
-      } else if (role === 'prestataire') {
-        navigate('/dashboard/prestataire');
-      } else if (role === 'entreprise') {
-        navigate('/dashboard/entreprise');
-      } else {
-        navigate('/profil'); // fallback
-      }
+      // Rediriger vers la page profil quel que soit le rôle
+      navigate('/profil');
     } catch (error: any) {
       setMessage(error.response?.data?.message || 'Erreur lors de la connexion');
     }
@@ -65,6 +57,12 @@ export const Login = () => {
           Se connecter
         </button>
       </form>
+      <p className="mt-4 text-center text-sm">
+        Pas encore de compte ?{' '}
+        <a href="/register" className="text-blue-600 hover:underline">
+          Inscrivez-vous
+        </a>
+      </p>
     </div>
   );
 };
