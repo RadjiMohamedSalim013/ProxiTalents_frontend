@@ -1,14 +1,14 @@
-
 import API from '../utils/axios';
+import type { IOffreEmploi } from '../types/offreEmploi.types';
 
 export const creerOffre = async (offreData: { titre: string; description: string }) => {
   const response = await API.post('/offres', offreData);
   return response.data;
 };
 
-export const getOffresEntreprise = async () => {
+export const getOffresEntreprise = async (): Promise<IOffreEmploi[]> => {
   const response = await API.get('/offres/entreprise');
-  return response.data;
+  return response.data as IOffreEmploi[];
 };
 
 export const getOffreById = async (id: string) => {

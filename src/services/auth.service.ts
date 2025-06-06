@@ -4,10 +4,11 @@ import type  { ChangePasswordRequest, ForgotPasswordRequest, ForgotPasswordRespo
 
 // Fonction pour enregistrer un nouvel utilisateur
 export const register = async (data: IRegisterInput) => {
-  // Ajouter le rôle par défaut 'utilisateur' avant d'envoyer les données
-  const dataWithRole: IRegisterData = { ...data, role: 'utilisateur' };
+  // Convertir motDePasse en motDepasse pour correspondre à IRegisterData
+  const { motDePasse, ...rest } = data;
+  const dataWithRole: IRegisterData = { ...rest, motDepasse: motDePasse, role: 'utilisateur' };
   const response = await API.post(`/auth/register`, dataWithRole);
-  console.log(response.data)
+  console.log(response.data);
   return response.data;
 };
 
@@ -30,7 +31,7 @@ export const login = async (data: ILoginData): Promise<ILoginResponse> => {
 
 export const logout = () => {
   localStorage.removeItem('token');
-  // localStorage.removeItem('utilisateur'); // si tu stockes l’utilisateur aussi
+  // localStorage.removeItem('utilisateur'); // si tu stockes l’utilisateu
 };
 
 

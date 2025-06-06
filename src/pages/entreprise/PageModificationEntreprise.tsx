@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getEntrepriseByUser, updateEntreprise } from '../../services/entreprise.service';
-import type { IEntreprise } from '../../types/entreprise.types';
 import { FiSave, FiArrowLeft, FiBriefcase, FiMapPin, FiPhone, FiMail, FiGlobe, FiEdit2 } from 'react-icons/fi';
 
 const PageModificationEntreprise: React.FC = () => {
   const navigate = useNavigate();
 
-  const [entreprise, setEntreprise] = useState<IEntreprise | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -27,7 +25,6 @@ const PageModificationEntreprise: React.FC = () => {
       try {
         const data = await getEntrepriseByUser();
         if (data) {
-          setEntreprise(data);
           setFormData({
             nom: data.nom,
             description: data.description || '',
@@ -41,8 +38,12 @@ const PageModificationEntreprise: React.FC = () => {
         } else {
           setError('Fiche entreprise non trouvée');
         }
-      } catch (err: any) {
-        setError(err.message || 'Erreur lors du chargement');
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError('Erreur lors du chargement');
+        }
       } finally {
         setLoading(false);
       }
@@ -67,8 +68,12 @@ const PageModificationEntreprise: React.FC = () => {
       await updateEntreprise(formData);
       alert('Fiche entreprise mise à jour avec succès');
       navigate('/profil');
-    } catch (err: any) {
-      alert(err.message || 'Erreur lors de la mise à jour');
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        alert(err.message);
+      } else {
+        alert('Erreur lors de la mise à jour');
+      }
     } finally {
       setIsSubmitting(false);
     }

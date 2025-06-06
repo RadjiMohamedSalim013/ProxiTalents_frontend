@@ -13,7 +13,7 @@ const PageGestionOffres: React.FC = () => {
     const fetchOffres = async () => {
       try {
         const data = await getOffresEntreprise();
-        setOffres(data);
+        setOffres(data as Array<{ _id: string; titre: string; description: string }>);
         setError(null);
       } catch {
         setError('Erreur lors de la récupération des offres');
