@@ -38,7 +38,7 @@ const App = () => (
       <Route path="/mot-de-passe-oublie" element={<ForgotPassword />} />
       <Route path="/reset-password/:token" element={<ResetPassword />} />
       <Route path="/changer-mot-de-passe" element={<ChangePassword />} />
-      <Route path="/home" element={<AccueilPage />} />
+      <Route path="/" element={<AccueilPage />} />
       <Route path="/a-propos" element={<AproposPage />} />
       <Route path="/creation" element={<PageCreationPrestataire />} />
       <Route path="/prestataires" element={<Prestataires />} />

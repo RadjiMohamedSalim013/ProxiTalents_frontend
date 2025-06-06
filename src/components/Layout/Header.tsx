@@ -1,6 +1,8 @@
 import type React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Home, Briefcase, FileText, BookOpen, User, LogIn, LogOut, UserPlus, Menu } from 'lucide-react';
+import { FiInfo, FiUsers, FiAward } from "react-icons/fi";
+
 
 const Header = () => {
   const navigate = useNavigate();
@@ -28,7 +30,7 @@ const Header = () => {
         {/* Navigation principale - Desktop */}
         <ul className="hidden md:flex items-center gap-6">
           <NavItem to="/home" icon={<Home className="w-5 h-5" />} text="Accueil" />
-          <NavItem to="/a-propos" icon={<Briefcase className="w-5 h-5" />} text="a propos" />
+<NavItem to="/a-propos" icon={<FiUsers className="w-5 h-5" />} text="À propos" />
           <NavItem to="/offres" icon={<FileText className="w-5 h-5" />} text="Offres" />
           <NavItem to="/articles" icon={<BookOpen className="w-5 h-5" />} text="Articles" />
 

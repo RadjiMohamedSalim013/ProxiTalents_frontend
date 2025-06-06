@@ -4,16 +4,8 @@ import { Search, ArrowRight, Briefcase, Users, Check } from 'lucide-react';
 const HeroSection = () => {
   return (
     <section className="relative h-[600px] md:h-[800px] flex items-center justify-center">
-      {/* 
-        ======================
-        SECTION D'ARRIÈRE-PLAN
-        ======================
-        Remplacez la classe bg-[...] par :
-        bg-[url('/votre-image.jpg')] avec le chemin de votre image
-        Format recommandé : WebP (meilleure compression)
-        Dimensions idéales : 1920x1080 pixels minimum
-      */}
-      <div className="absolute inset-0 z-0 bg-[url('/hero-bg.webp')] bg-cover bg-center">
+      {/* Arrière-plan avec image professionnelle moderne */}
+      <div className="absolute inset-0 z-0 bg-[url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center">
         {/* Overlay sombre pour améliorer la lisibilité du texte */}
         <div className="absolute inset-0 bg-slate-900/70"></div>
         
@@ -21,14 +13,9 @@ const HeroSection = () => {
         <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-slate-900 to-transparent"></div>
       </div>
 
-      {/* 
-        ======================
-        CONTENU PRINCIPAL
-        Tous les éléments textuels et CTA
-        ======================
-      */}
+      {/* Contenu principal */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
-        {/* Titre principal - 2 lignes pour plus d'impact */}
+        {/* Titre principal */}
         <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight drop-shadow-lg">
           <span className="block">Transformez vos <span className="text-amber-400">besoins</span></span>
           <span className="block mt-3">en <span className="text-amber-400">opportunités</span> concrètes</span>
@@ -59,7 +46,7 @@ const HeroSection = () => {
           </a>
         </div>
 
-        {/* Badges de confiance - 4 points clés */}
+        {/* Badges de confiance */}
         <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
           {[
             "Aucune commission",

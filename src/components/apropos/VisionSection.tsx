@@ -47,11 +47,15 @@ export default function VisionSection() {
 
           {/* Colonne image */}
           <div className="relative rounded-xl overflow-hidden aspect-[4/3] shadow-2xl border-2 border-white/10">
-            {/* Image illustrative - à remplacer */}
+            {/* Image illustrative - économie locale collaborative */}
             <img 
-              src="/images/vision-local.jpg" 
-              alt="Économie locale"
+              src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80" 
+              alt="Économie locale collaborative"
               className="w-full h-full object-cover"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = 'https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80';
+              }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-900/30 to-transparent"></div>
           </div>

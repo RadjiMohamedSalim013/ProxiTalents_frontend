@@ -1,12 +1,11 @@
-import React from "react";
 import { FiUsers, FiTarget, FiHeart } from "react-icons/fi";
 
 export default function PresentationSection() {
   return (
     <section className="relative py-24 bg-white overflow-hidden">
-      {/* Image de fond (à remplacer) */}
+      {/* Fond avec motif très léger */}
       <div className="absolute top-0 left-0 w-full h-full opacity-5 z-0">
-        <div className="bg-[url('/images/pattern.svg')] w-full h-full"></div>
+        <div className="bg-[url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1920')] w-full h-full bg-cover"></div>
       </div>
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
@@ -14,11 +13,15 @@ export default function PresentationSection() {
           {/* Colonne image */}
           <div className="order-2 md:order-1">
             <div className="bg-gray-100 rounded-2xl overflow-hidden aspect-[4/3] shadow-lg">
-              {/* Remplacez par votre image */}
+              {/* Nouvelle image d'équipe qui devrait s'afficher */}
               <img 
-                src="/images/equipe-proxitalents.jpg" 
-                alt="Équipe ProxiTalents"
+                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80" 
+                alt="Équipe ProxiTalents en réunion"
                 className="w-full h-full object-cover"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = 'https://images.unsplash.com/photo-1571260899304-425eee4c7efc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80';
+                }}
               />
             </div>
           </div>
@@ -40,7 +43,7 @@ export default function PresentationSection() {
 
             {/* Chiffres clés */}
             <div className="grid grid-cols-3 gap-4 mt-12">
-              {[
+              {[ 
                 { value: "500+", label: "Professionnels" },
                 { value: "10k+", label: "Utilisateurs" },
                 { value: "100%", label: "Satisfaction" }

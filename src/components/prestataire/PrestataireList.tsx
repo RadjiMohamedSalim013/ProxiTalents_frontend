@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import type { IPrestataire } from '../../types/prestataire.types';
 import { getPrestataires } from '../../services/prestataire.service';
 import FilterPrestataires from './FilterPrestataires';
-import { MapPin, Briefcase, Phone, Mail, Smartphone } from 'lucide-react';
+import { MapPin, Briefcase, Phone, Mail, Smartphone, Star } from 'lucide-react';
 
 const PrestataireList: React.FC = () => {
   const [prestataires, setPrestataires] = useState<IPrestataire[]>([]);
@@ -64,108 +64,161 @@ const PrestataireList: React.FC = () => {
     setPrixFilter(null);
   };
 
-  if (loading)
-    return (
-      <div className="min-h-screen flex items-center justify-center text-gray-600 text-lg bg-[#F3F4F6]">
-        Chargement des prestataires...
-      </div>
-    );
+  if (loading) return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500"></div>
+    </div>
+  );
 
-  if (error)
-    return (
-      <div className="min-h-screen flex items-center justify-center text-red-600 text-lg bg-[#F3F4F6]">
-        Erreur : {error}
+  if (error) return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 max-w-md">
+        <p>Erreur lors du chargement : {error}</p>
       </div>
-    );
+    </div>
+  );
 
   return (
-    <div className="min-h-screen bg-[#F3F4F6] px-6 py-10">
-      <div className="max-w-7xl mx-auto space-y-10">
+    <div className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        {/* En-tête */}
+        <div className="text-center mb-12">
+          <h1 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4">
+            Trouvez le prestataire idéal
+          </h1>
+          <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+            Des professionnels qualifiés près de chez vous
+          </p>
+        </div>
+
         {/* Filtres */}
-        <FilterPrestataires
-          villeFilter={villeFilter}
-          setVilleFilter={setVilleFilter}
-          metierFilter={metierFilter}
-          setMetierFilter={setMetierFilter}
-          prixFilter={prixFilter}
-          setPrixFilter={setPrixFilter}
-          resetFilters={resetFilters}
-        />
+        <div className="mb-12">
+          <FilterPrestataires
+            villeFilter={villeFilter}
+            setVilleFilter={setVilleFilter}
+            metierFilter={metierFilter}
+            setMetierFilter={setMetierFilter}
+            prixFilter={prixFilter}
+            setPrixFilter={setPrixFilter}
+            resetFilters={resetFilters}
+          />
+        </div>
 
         {/* Liste */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {filteredPrestataires.length === 0 && (
-            <p className="col-span-full text-center text-gray-600 text-lg mt-10">
-              Aucun prestataire trouvé.
-            </p>
-          )}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredPrestataires.length === 0 ? (
+            <div className="col-span-full text-center py-12">
+              <div className="bg-white p-8 rounded-xl shadow-sm max-w-md mx-auto">
+                <p className="text-lg text-slate-600 mb-4">Aucun prestataire ne correspond à vos critères</p>
+                <button
+                  onClick={resetFilters}
+                  className="text-amber-600 hover:text-amber-700 font-medium"
+                >
+                  Réinitialiser les filtres
+                </button>
+              </div>
+            </div>
+          ) : (
+            filteredPrestataires.map((p) => (
+              <div
+                key={p._id}
+                className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow overflow-hidden flex flex-col border border-slate-200"
+              >
+                {/* En-tête carte */}
+                <div className="p-6 pb-0">
+                  <div className="flex justify-between items-start mb-4">
+                    <h2 className="text-xl font-bold text-slate-800">
+                      {typeof p.userId === 'object' && p.userId !== null
+                        ? p.userId.nom
+                        : 'Nom inconnu'}
+                    </h2>
+                    <div className="flex items-center bg-amber-50 text-amber-600 px-2 py-1 rounded text-sm">
+                      <Star className="w-4 h-4 mr-1" />
+                      <span>4.8</span>
+                    </div>
+                  </div>
 
-          {filteredPrestataires.map((p) => (
-            <div
-              key={p._id}
-              className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300 p-7 flex flex-col justify-between border border-transparent hover:border-blue-400"
-            >
-              <div>
-                <h2 className="text-2xl font-extrabold mb-2 text-[#1E40AF]">
-                  {typeof p.userId === 'object' && p.userId !== null
-                    ? p.userId.nom
-                    : 'Nom inconnu'}
-                </h2>
-                <p className="text-gray-700 mb-5 min-h-[80px] leading-relaxed">{p.bio || 'Pas de bio disponible.'}</p>
+                  <p className="text-slate-600 mb-6 line-clamp-3">
+                    {p.bio || 'Ce prestataire n\'a pas encore rédigé de bio.'}
+                  </p>
 
-                <div className="flex items-center text-blue-600 mb-3 space-x-3 font-semibold">
-                  <MapPin className="w-6 h-6" />
-                  <span className="text-base">{p.zoneGeographique || 'Zone non spécifiée'}</span>
+                  <div className="flex items-center text-slate-600 mb-6">
+                    <MapPin className="w-5 h-5 mr-2 text-slate-400" />
+                    <span>{p.zoneGeographique || 'Zone non spécifiée'}</span>
+                  </div>
                 </div>
 
-                <div>
-                  <h3 className="flex items-center gap-3 font-extrabold text-[#2563EB] mb-3 text-lg">
-                    <Briefcase className="w-6 h-6" />
-                    Services
+                {/* Services */}
+                <div className="px-6 pb-6">
+                  <h3 className="flex items-center text-slate-700 font-semibold mb-3">
+                    <Briefcase className="w-5 h-5 mr-2 text-slate-400" />
+                    Services proposés
                   </h3>
-                  <ul className="list-disc list-inside text-gray-800 max-h-28 overflow-y-auto space-y-1 text-sm">
-                    {p.services.map((s, i) => (
-                      <li key={i}>
-                        {s.nom} {s.tarif ? `- ${s.tarif.toLocaleString()} FCFA` : ''}
+                  <ul className="space-y-2">
+                    {p.services.slice(0, 3).map((s, i) => (
+                      <li key={i} className="flex justify-between text-sm">
+                        <span className="text-slate-800">{s.nom}</span>
+                        {s.tarif && (
+                          <span className="text-amber-600 font-medium">
+                            {s.tarif.toLocaleString()} FCFA
+                          </span>
+                        )}
                       </li>
                     ))}
+                    {p.services.length > 3 && (
+                      <li className="text-sm text-slate-500">
+                        +{p.services.length - 3} autres services
+                      </li>
+                    )}
                   </ul>
                 </div>
-              </div>
 
-              {typeof p.userId === 'object' && p.userId !== null && (
-                <div className="mt-7 border-t pt-5 text-sm text-gray-700 space-y-3">
-                  {p.userId.telephone && (
-                    <p className="flex items-center gap-3 text-blue-600 font-semibold">
-                      <Phone className="w-5 h-5" />
-                      <span>{p.userId.telephone}</span>
-                      <a
-                        href={`https://wa.me/${p.userId.telephone.replace(/\D/g, '')}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="ml-auto text-green-600 hover:underline flex items-center gap-1 font-semibold"
-                      >
-                        <Smartphone className="w-5 h-5" /> WhatsApp
-                      </a>
-                    </p>
-                  )}
-                  <p className="flex items-center gap-3 text-blue-600 font-semibold">
-                    <Mail className="w-5 h-5" />
-                    <a href={`mailto:${p.userId.email}`} className="hover:underline">
-                      {p.userId.email}
-                    </a>
-                  </p>
+                {/* Contact */}
+                {typeof p.userId === 'object' && p.userId !== null && (
+                  <div className="mt-auto border-t border-slate-200 p-6 bg-slate-50">
+                    <div className="space-y-3">
+                      {p.userId.telephone && (
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center">
+                            <Phone className="w-5 h-5 mr-2 text-slate-400" />
+                            <span className="text-slate-700">{p.userId.telephone}</span>
+                          </div>
+                          <a
+                            href={`https://wa.me/${p.userId.telephone.replace(/\D/g, '')}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-green-600 hover:text-green-700 text-sm font-medium flex items-center"
+                          >
+                            <Smartphone className="w-4 h-4 mr-1" />
+                            WhatsApp
+                          </a>
+                        </div>
+                      )}
+                      <div className="flex items-center">
+                        <Mail className="w-5 h-5 mr-2 text-slate-400" />
+                        <a 
+                          href={`mailto:${p.userId.email}`} 
+                          className="text-slate-700 hover:text-blue-600 text-sm truncate"
+                        >
+                          {p.userId.email}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Bouton action */}
+                <div className="px-6 pb-6">
+                  <button
+                    onClick={() => navigate(`/prestataire/${p._id}`)}
+                    className="w-full mt-4 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-medium py-2 px-4 rounded-lg transition-all shadow-sm hover:shadow-md"
+                  >
+                    Voir le profil complet
+                  </button>
                 </div>
-              )}
-
-              <button
-                onClick={() => navigate(`/prestataire/${p._id}`)}
-                className="mt-8 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-extrabold py-3 rounded-xl transition-all shadow-lg"
-              >
-                Visiter le profil
-              </button>
-            </div>
-          ))}
+              </div>
+            ))
+          )}
         </div>
       </div>
     </div>
