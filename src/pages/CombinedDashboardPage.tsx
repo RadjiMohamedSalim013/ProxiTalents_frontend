@@ -14,14 +14,14 @@ const CombinedDashboardPage: React.FC = () => {
     const fetchProfiles = async () => {
       try {
         const prestataireData = await getPrestataireByUser();
-        setPrestataire(prestataireData);
-      } catch {
+        setPrestataire(prestataireData as IPrestataire);
+      } catch (error) {
         setPrestataire(null);
       }
       try {
         const entrepriseData = await getEntrepriseByUser();
-        setEntreprise(entrepriseData);
-      } catch {
+        setEntreprise(entrepriseData as IEntreprise);
+      } catch (error) {
         setEntreprise(null);
       }
       setLoading(false);
@@ -40,7 +40,7 @@ const CombinedDashboardPage: React.FC = () => {
       {prestataire && (
         <div className="mb-6 p-4 border rounded">
           <h2 className="text-2xl font-semibold">Profil Prestataire</h2>
-          <p><strong>Nom:</strong> {prestataire.userId?.nom || 'Nom inconnu'}</p>
+          <p><strong>Nom:</strong> {typeof prestataire.userId === 'object' ? prestataire.userId?.nom : 'Nom inconnu'}</p>
           <button
             onClick={() => navigate(`/prestataire/dashboard/${prestataire._id}`)}
             className="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"

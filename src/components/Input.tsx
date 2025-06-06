@@ -8,21 +8,27 @@ interface InputProps {
   value: string; 
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; // Fonction appelée à chaque changement du champ
   className?: string;
+  required?: boolean;
 }
 
-// Composant fonctionnel Input avec déstructuration des props et valeur par défaut pour 'type'
-export const Input: React.FC<InputProps> = ({ label, name, type = 'text', value, onChange, className }) => (
+export const Input: React.FC<InputProps> = ({ label, name, type = 'text', value, onChange, className, required }) => (
   <div className="mb-4">
     {/* Label lié au champ input pour accessibilité */}
-    <label className="block text-sm font-medium text-gray-700">{label}</label>
+    <label htmlFor={name} className="block text-sm font-medium text-gray-700">{label}</label>
 
     {/* Champ input contrôlé */}
     <input
+      id={name}
       name={name}          
       type={type}          
       value={value}        
       onChange={onChange}  
       className={`mt-1 block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${className || ''}`}
+      required={required}
+      aria-required={required ? 'true' : 'false'}
+      aria-label={label}
+      placeholder={label}
+      title={label}
     />
   </div>
 );

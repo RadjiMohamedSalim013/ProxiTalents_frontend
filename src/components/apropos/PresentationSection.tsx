@@ -1,4 +1,3 @@
-import { FiUsers, FiTarget, FiHeart } from "react-icons/fi";
 
 export default function PresentationSection() {
   return (
