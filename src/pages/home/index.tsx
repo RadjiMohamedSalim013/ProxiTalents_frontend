@@ -1,7 +1,6 @@
 // src/pages/Accueil/index.tsx
 import React from 'react';
-import Header from '../../components/Layout/Header';
-import Footer from '../../components/Layout/Footer';
+
 import HeroSection from '../../components/home/HeroSection';
 import AProposSection from '../../components/home/ApercuAproposSection';
 import CategoriesServicesSection from '../../components/home/CategoriesServicesSection';
@@ -17,7 +16,6 @@ import JoinCommunitySection from '../../components/home/JoinCommunitySection';
 const AccueilPage = () => {
    return (
     <div className="min-h-screen">
-      <Header/>
       <HeroSection />
       <AProposSection />
       <CategoriesServicesSection />
@@ -26,7 +24,6 @@ const AccueilPage = () => {
       <TestimonialsSection />
       <JoinCommunitySection/>
     
-      <Footer />
     </div>
   );
 }

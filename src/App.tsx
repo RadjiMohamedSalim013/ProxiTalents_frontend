@@ -25,8 +25,12 @@ import ArticlesPage from './pages/ArticlesPage';
 import ArticleDetailPage from './pages/ArticleDetailPage';
 import Offres from './pages/entreprise/Offres';
 
+import Header from './components/Layout/Header';
+import Footer from './components/Layout/Footer';
+
 const App = () => (
   <BrowserRouter>
+    <Header />
     <Routes>
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
@@ -53,7 +57,9 @@ const App = () => (
       <Route path="/articles" element={<ArticlesPage />} />
       <Route path="/articles/:id" element={<ArticleDetailPage />} />
     </Routes>
+    <Footer />
   </BrowserRouter>
+
 );
 
 export default App;

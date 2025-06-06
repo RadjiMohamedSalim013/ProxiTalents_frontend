@@ -1,73 +1,169 @@
 import { useState } from 'react';
-import { Input } from '../components/Input';          
-import { register } from '../services/auth.service'; 
-import '../App.css' 
+import { register } from '../services/auth.service';
 import type { IRegisterInput } from '../types/users.types';
+import { FiUser, FiMail, FiLock, FiLogIn } from 'react-icons/fi';
+import { Input } from '../components/Input';
 
 export const Register = () => {
-  // État local pour stocker les valeurs du formulaire d'inscription
   const [form, setForm] = useState<IRegisterInput>({
-    nom: '',            
-    email: '',          
-    motDePasse: '',    
+    nom: '',
+    email: '',
+    motDePasse: ''
   });
+  const [message, setMessage] = useState<{text: string, type: 'success' | 'error'} | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // État local pour afficher un message (succès ou erreur)
-  const [message, setMessage] = useState('');
-
-  // Gestionnaire pour mettre à jour les champs du formulaire à chaque saisie
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // Gestionnaire de soumission du formulaire
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault(); 
+    e.preventDefault();
+    setIsLoading(true);
     try {
-      // Appelle la fonction d'inscription avec les données du formulaire
       const res = await register(form);
-      // Affiche le message de succès retourné par l'API ou un message par défaut
-      setMessage(res.message || 'Inscription réussie');
+      setMessage({ text: res.message || 'Inscription réussie !', type: 'success' });
     } catch (error: any) {
-      // En cas d'erreur, affiche le message d'erreur retourné ou un message générique
-      setMessage(error.response?.data?.message || 'Erreur lors de l’inscription');
+      setMessage({ 
+        text: error.response?.data?.message || 'Erreur lors de l\'inscription', 
+        type: 'error' 
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <>
-      <div className="max-w-md mx-auto mt-10 p-6 border rounded-lg shadow-md bg-white">
-        <h1 className="text-2xl font-semibold mb-6 text-center">Inscription</h1>
-        
-        {/* Affichage conditionnel du message (erreur ou succès) */}
-        {message && <p className="mb-4 text-center text-sm text-red-500">{message}</p>}
+    <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-4">
+      <div className="w-full max-w-md bg-white rounded-xl shadow-lg overflow-hidden">
+        {/* En-tête avec dégradé */}
+        <div className="bg-gradient-to-r from-slate-800 to-slate-700 py-6 px-8 text-white">
+          <h1 className="text-2xl font-bold flex items-center gap-2">
+            <FiUser className="text-amber-400" />
+            Créer un compte ProxiTalents
+          </h1>
+          <p className="text-slate-300 text-sm mt-1">
+            Rejoignez notre communauté de talents
+          </p>
+        </div>
 
-        {/* Formulaire d'inscription */}
-        <form onSubmit={handleSubmit}>
-          {/* Champ Nom */}
-          <Input label="Nom" name="nom" value={form.nom} onChange={handleChange} />
-          
-          {/* Champ Email */}
-          <Input label="Email" name="email" value={form.email} onChange={handleChange} />
-          
-          {/* Champ Mot de passe (type password pour cacher la saisie) */}
-          <Input label="Mot de passe" name="motDePasse" type="password" value={form.motDePasse} onChange={handleChange} />
-          
-          {/* Bouton de soumission */}
-          <button
-            type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
-          >
-            S’inscrire
-          </button>
-        </form>
+        {/* Corps du formulaire */}
+        <div className="p-8">
+          {/* Message d'état */}
+          {message && (
+            <div className={`mb-6 p-3 rounded-lg text-sm flex items-center ${
+              message.type === 'success' 
+                ? 'bg-green-50 text-green-600' 
+                : 'bg-red-50 text-red-600'
+            }`}>
+              {message.text}
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Champ Nom */}
+            <div>
+              <label htmlFor="nom" className="block text-sm font-medium text-slate-700 mb-1">
+                Nom complet
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <FiUser className="text-slate-400" />
+                </div>
+                <Input
+                  id="nom"
+                  name="nom"
+                  type="text"
+                  placeholder="Votre nom complet"
+                  value={form.nom}
+                  onChange={handleChange}
+                  className="pl-10"
+                  required
+                />
+              </div>
+            </div>
+
+            {/* Champ Email */}
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1">
+                Adresse email
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <FiMail className="text-slate-400" />
+                </div>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="votre@email.com"
+                  value={form.email}
+                  onChange={handleChange}
+                  className="pl-10"
+                  required
+                />
+              </div>
+            </div>
+
+            {/* Champ Mot de passe */}
+            <div>
+              <label htmlFor="motDePasse" className="block text-sm font-medium text-slate-700 mb-1">
+                Mot de passe
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <FiLock className="text-slate-400" />
+                </div>
+                <Input
+                  id="motDePasse"
+                  name="motDePasse"
+                  type="password"
+                  placeholder="••••••••"
+                  value={form.motDePasse}
+                  onChange={handleChange}
+                  className="pl-10"
+                  required
+                />
+              </div>
+              <p className="mt-2 text-xs text-slate-500">
+                Minimum 8 caractères avec des chiffres et lettres
+              </p>
+            </div>
+
+            {/* Bouton de soumission */}
+            <button
+              type="submit"
+              disabled={isLoading}
+              className={`w-full py-3 px-4 bg-amber-500 hover:bg-amber-600 text-white font-medium rounded-lg transition flex items-center justify-center ${
+                isLoading ? 'opacity-75 cursor-not-allowed' : ''
+              }`}
+            >
+              {isLoading ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Création du compte...
+                </>
+              ) : (
+                'S\'inscrire maintenant'
+              )}
+            </button>
+          </form>
+
+          {/* Lien vers connexion */}
+          <div className="mt-6 pt-6 border-t border-slate-200 text-center">
+            <p className="text-sm text-slate-600">
+              Vous avez déjà un compte ?{' '}
+              <a href="/login" className="text-amber-600 font-medium hover:underline">
+                <FiLogIn className="inline mr-1" />
+                Se connecter
+              </a>
+            </p>
+          </div>
+        </div>
       </div>
-      <p className="mt-4 text-center text-sm">
-        Déjà un compte ?{' '}
-        <a href="/login" className="text-blue-600 hover:underline">
-          Connectez-vous
-        </a>
-      </p>
-    </>
+    </div>
   );
 };

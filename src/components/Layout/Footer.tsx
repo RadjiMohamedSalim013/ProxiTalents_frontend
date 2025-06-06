@@ -1,4 +1,3 @@
-import React from 'react';
 import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, Briefcase } from 'lucide-react';
 
 const Footer = () => {
@@ -67,7 +66,7 @@ const Footer = () => {
         {/* Copyright */}
         <div className="border-t border-slate-700 mt-12 pt-6 text-center text-sm">
           <p>&copy; {new Date().getFullYear()} ProxiTalents - Tous droits réservés</p>
-          <p className="mt-2">Made with  in CIV</p>
+          <p className="mt-2">Made with ❤️ in France</p>
         </div>
       </div>
     </footer>
@@ -75,7 +74,12 @@ const Footer = () => {
 };
 
 // Composants réutilisables
-const FooterLink = ({ href, text }) => (
+type FooterLinkProps = {
+  href: string;
+  text: string;
+};
+
+const FooterLink = ({ href, text }: FooterLinkProps) => (
   <li>
     <a 
       href={href} 
@@ -86,7 +90,11 @@ const FooterLink = ({ href, text }) => (
   </li>
 );
 
-const SocialIcon = ({ icon }) => (
+type SocialIconProps = {
+  icon: React.ReactNode;
+};
+
+const SocialIcon = ({ icon }: SocialIconProps) => (
   <a 
     href="#" 
     className="bg-slate-800 hover:bg-slate-700 p-2 rounded-full transition-colors"

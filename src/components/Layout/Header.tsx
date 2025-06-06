@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Home, Briefcase, FileText, BookOpen, User, LogIn, LogOut, UserPlus, Menu } from 'lucide-react';
 
@@ -28,7 +28,7 @@ const Header = () => {
         {/* Navigation principale - Desktop */}
         <ul className="hidden md:flex items-center gap-6">
           <NavItem to="/home" icon={<Home className="w-5 h-5" />} text="Accueil" />
-          <NavItem to="/entreprises" icon={<Briefcase className="w-5 h-5" />} text="Entreprises" />
+          <NavItem to="/a-propos" icon={<Briefcase className="w-5 h-5" />} text="a propos" />
           <NavItem to="/offres" icon={<FileText className="w-5 h-5" />} text="Offres" />
           <NavItem to="/articles" icon={<BookOpen className="w-5 h-5" />} text="Articles" />
 
@@ -53,7 +53,7 @@ const Header = () => {
 
         {/* Menu mobile */}
         <div className="md:hidden flex items-center">
-          <button className="p-2">
+          <button className="p-2" aria-label="Open menu" title="Open menu">
             <Menu className="w-6 h-6" />
           </button>
         </div>
@@ -63,7 +63,13 @@ const Header = () => {
 };
 
 // Composant réutilisable pour les items de navigation
-const NavItem = ({ to, icon, text }) => (
+type NavItemProps = {
+  to: string;
+  icon: React.ReactNode;
+  text: string;
+};
+
+const NavItem = ({ to, icon, text }: NavItemProps) => (
   <li>
     <Link 
       to={to} 
@@ -75,4 +81,4 @@ const NavItem = ({ to, icon, text }) => (
   </li>
 );
 
-export default Header;
+export default Header

@@ -5,16 +5,22 @@ export const testimonials: Testimonial[] = [
   {
     nom: "Fatou K.",
     role: "Utilisatrice",
-    message: "Grâce à WAKAWAKA, j’ai trouvé une coiffeuse professionnelle en moins de 24h. Je recommande !"
+    message: "Grâce à WAKAWAKA, j’ai trouvé une coiffeuse professionnelle en moins de 24h. Je recommande !",
+    rating: 5
+
   },
   {
     nom: "Jean-Marc D.",
     role: "Prestataire",
-    message: "Depuis mon inscription, j’ai doublé le nombre de mes clients. WAKAWAKA m’a vraiment aidé à me faire connaître."
+    message: "Depuis mon inscription, j’ai doublé le nombre de mes clients. WAKAWAKA m’a vraiment aidé à me faire connaître.",
+    rating: 4
+
   },
   {
     nom: "Entreprise Y",
     role: "Entreprise",
-    message: "Nous avons pu recruter plusieurs artisans qualifiés pour nos chantiers. Très utile et efficace !"
+    message: "Nous avons pu recruter plusieurs artisans qualifiés pour nos chantiers. Très utile et efficace !",
+     rating: 5
+
   }
 ];
