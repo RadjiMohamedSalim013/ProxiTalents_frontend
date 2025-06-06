@@ -1,4 +1,3 @@
-import React from 'react';
 import { ETAPES } from '../../data/homeSteps.data';
 import { FiSearch, FiUserPlus , FiCheckCircle } from 'react-icons/fi';
 import { FaHandshake } from 'react-icons/fa';

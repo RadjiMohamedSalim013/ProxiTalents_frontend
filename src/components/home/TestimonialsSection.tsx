@@ -1,4 +1,3 @@
-import React from 'react';
 import { testimonials } from '../../data/testimonials.data';
 import { FaQuoteLeft } from 'react-icons/fa';
 import { FiStar } from 'react-icons/fi';

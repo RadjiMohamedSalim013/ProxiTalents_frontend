@@ -1,4 +1,3 @@
-import React from "react";
 import PresentationSection from "../../components/apropos/PresentationSection";
 import ValeursSection from "../../components/apropos/ValeursSection";
 import VisionSection from "../../components/apropos/VisionSection";

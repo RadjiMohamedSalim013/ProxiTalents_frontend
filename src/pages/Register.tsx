@@ -22,10 +22,10 @@ export const Register = () => {
     setIsLoading(true);
     try {
       const res = await register(form);
-      setMessage({ text: res.message || 'Inscription réussie !', type: 'success' });
-    } catch (error: any) {
+      setMessage({ text: (res as any).message || 'Inscription réussie !', type: 'success' });
+    } catch (error: unknown) {
       setMessage({ 
-        text: error.response?.data?.message || 'Erreur lors de l\'inscription', 
+        text: (error as any).response?.data?.message || 'Erreur lors de l\'inscription', 
         type: 'error' 
       });
     } finally {
@@ -71,10 +71,9 @@ export const Register = () => {
                   <FiUser className="text-slate-400" />
                 </div>
                 <Input
-                  id="nom"
+                  label="Nom complet"
                   name="nom"
                   type="text"
-                  placeholder="Votre nom complet"
                   value={form.nom}
                   onChange={handleChange}
                   className="pl-10"
@@ -93,10 +92,9 @@ export const Register = () => {
                   <FiMail className="text-slate-400" />
                 </div>
                 <Input
-                  id="email"
+                  label="Adresse email"
                   name="email"
                   type="email"
-                  placeholder="votre@email.com"
                   value={form.email}
                   onChange={handleChange}
                   className="pl-10"
@@ -115,10 +113,9 @@ export const Register = () => {
                   <FiLock className="text-slate-400" />
                 </div>
                 <Input
-                  id="motDePasse"
+                  label="Mot de passe"
                   name="motDePasse"
                   type="password"
-                  placeholder="••••••••"
                   value={form.motDePasse}
                   onChange={handleChange}
                   className="pl-10"

@@ -1,5 +1,4 @@
-import React from 'react';
-import { Search, ArrowRight, Briefcase, Users, Check } from 'lucide-react';
+import { Search, ArrowRight, Briefcase, Check } from 'lucide-react';
 
 const HeroSection = () => {
   return (

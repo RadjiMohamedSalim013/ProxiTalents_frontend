@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getPrestataireByUser, getEntrepriseByUser } from '../services/profile.service'; // We will create this service
+import { getPrestataireByUser, getEntrepriseByUser } from '../services/profile.service';
+import type { IPrestataire } from '../types/prestataire.types';
+import type { IEntreprise } from '../types/entreprise.types';
 
 const CombinedDashboardPage: React.FC = () => {
-  const [prestataire, setPrestataire] = useState(null);
-  const [entreprise, setEntreprise] = useState(null);
+  const [prestataire, setPrestataire] = useState<IPrestataire | null>(null);
+  const [entreprise, setEntreprise] = useState<IEntreprise | null>(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 

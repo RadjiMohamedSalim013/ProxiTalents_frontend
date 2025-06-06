@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../services/auth.service';
 import type { ILoginData, ILoginResponse } from '../types/users.types';
-import { FiMail, FiLock, FiLogIn } from 'react-icons/fi';
+import { FiMail, FiLock, FiLogIn, FiAlertCircle } from 'react-icons/fi';
 
 export const Login = () => {
   const [form, setForm] = useState<ILoginData>({ email: '', motDePasse: '' });
