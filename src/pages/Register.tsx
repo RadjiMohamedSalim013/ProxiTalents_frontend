@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { register } from '../services/auth.service';
 import type { IRegisterInput } from '../types/users.types';
 import { FiUser, FiMail, FiLock, FiLogIn } from 'react-icons/fi';
-import { Input } from '../components/Input';
 
 export const Register = () => {
   const [form, setForm] = useState<IRegisterInput>({
@@ -22,10 +21,10 @@ export const Register = () => {
     setIsLoading(true);
     try {
       const res = await register(form);
-      setMessage({ text: (res as any).message || 'Inscription réussie !', type: 'success' });
+      setMessage({ text: (res as { message?: string }).message || 'Inscription réussie !', type: 'success' });
     } catch (error: unknown) {
       setMessage({ 
-        text: (error as any).response?.data?.message || 'Erreur lors de l\'inscription', 
+        text: (error as { response?: { data?: { message?: string } } }).response?.data?.message || 'Erreur lors de l\'inscription', 
         type: 'error' 
       });
     } finally {
@@ -70,13 +69,13 @@ export const Register = () => {
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <FiUser className="text-slate-400" />
                 </div>
-                <Input
-                  label="Nom complet"
+                <input
+                  id="nom"
                   name="nom"
                   type="text"
                   value={form.nom}
                   onChange={handleChange}
-                  className="pl-10"
+                  className="mt-1 block w-full px-4 py-2 pl-10 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />
               </div>
@@ -91,13 +90,13 @@ export const Register = () => {
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <FiMail className="text-slate-400" />
                 </div>
-                <Input
-                  label="Adresse email"
+                <input
+                  id="email"
                   name="email"
                   type="email"
                   value={form.email}
                   onChange={handleChange}
-                  className="pl-10"
+                  className="mt-1 block w-full px-4 py-2 pl-10 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />
               </div>
@@ -112,13 +111,13 @@ export const Register = () => {
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <FiLock className="text-slate-400" />
                 </div>
-                <Input
-                  label="Mot de passe"
+                <input
+                  id="motDePasse"
                   name="motDePasse"
                   type="password"
                   value={form.motDePasse}
                   onChange={handleChange}
-                  className="pl-10"
+                  className="mt-1 block w-full px-4 py-2 pl-10 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />
               </div>
