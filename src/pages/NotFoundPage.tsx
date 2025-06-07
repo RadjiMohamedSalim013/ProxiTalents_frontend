@@ -9,7 +9,7 @@ const NotFoundPage = () => {
         Désolé, la page que vous recherchez n'existe pas ou a été déplacée.
       </p>
       <Link
-        to="/home"
+        to="/"
         className="px-6 py-3 bg-amber-500 text-white rounded hover:bg-amber-600 transition"
       >
         Retour à l'accueil
