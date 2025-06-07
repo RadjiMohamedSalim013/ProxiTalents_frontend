@@ -29,30 +29,123 @@ import Header from './components/Layout/Header';
 import Footer from './components/Layout/Footer';
 import NotFoundPage from './pages/NotFoundPage';
 
+import PrivateRoute from './components/PrivateRoute';
+
 const App = () => (
   <BrowserRouter>
     <Header />
     <Routes>
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/profil" element={<Profil />} />
+      <Route
+        path="/profil"
+        element={
+          <PrivateRoute>
+            <Profil />
+          </PrivateRoute>
+        }
+      />
       <Route path="/mot-de-passe-oublie" element={<ForgotPassword />} />
       <Route path="/reset-password/:token" element={<ResetPassword />} />
       <Route path="/changer-mot-de-passe" element={<ChangePassword />} />
       <Route path="/" element={<AccueilPage />} />
       <Route path="/a-propos" element={<AproposPage />} />
-      <Route path="/creation" element={<PageCreationPrestataire />} />
-      <Route path="/prestataires" element={<Prestataires />} />
-      <Route path="/prestataire/:id" element={<PageProfilPrestataire />} />
-      <Route path="/dashboard-prestataire" element={<PageDashboardPrestataire />} />
-      <Route path="/prestataire/modification/:id" element={<PageModificationPrestataire />} />
-      <Route path="/prestataire/ajout-service/:id" element={<FormulaireService />} />
-      <Route path="/creation-entreprise" element={<PageCreationEntreprise />} />
-      <Route path="/modification-entreprise/:id" element={<PageModificationEntreprise />} />
-      <Route path="/dashboard-entreprise" element={<PageDashboardEntreprise />} />
-      <Route path="/entreprises" element={<Entreprises />} />
-      <Route path="/gestion-offres" element={<PageGestionOffres />} />
-      <Route path="/creation-offre" element={<PageCreationOffre />} />
+      <Route
+        path="/creation"
+        element={
+          <PrivateRoute>
+            <PageCreationPrestataire />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/prestataires"
+        element={
+          <PrivateRoute>
+            <Prestataires />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/prestataire/:id"
+        element={
+          <PrivateRoute>
+            <PageProfilPrestataire />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/dashboard-prestataire"
+        element={
+          <PrivateRoute>
+            <PageDashboardPrestataire />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/prestataire/modification/:id"
+        element={
+          <PrivateRoute>
+            <PageModificationPrestataire />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/prestataire/ajout-service/:id"
+        element={
+          <PrivateRoute>
+            <FormulaireService />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/creation-entreprise"
+        element={
+          <PrivateRoute>
+            <PageCreationEntreprise />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/modification-entreprise/:id"
+        element={
+          <PrivateRoute>
+            <PageModificationEntreprise />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/dashboard-entreprise"
+        element={
+          <PrivateRoute>
+            <PageDashboardEntreprise />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/entreprises"
+        element={
+          <PrivateRoute>
+            <Entreprises />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/gestion-offres"
+        element={
+          <PrivateRoute>
+            <PageGestionOffres />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/creation-offre"
+        element={
+          <PrivateRoute>
+            <PageCreationOffre />
+          </PrivateRoute>
+        }
+      />
       <Route path="/offre/:id" element={<PageDetailOffre />} />
       <Route path="/offres" element={<Offres />} />
       <Route path="/articles" element={<ArticlesPage />} />
@@ -61,7 +154,6 @@ const App = () => (
     </Routes>
     <Footer />
   </BrowserRouter>
-
 );
 
 export default App;
