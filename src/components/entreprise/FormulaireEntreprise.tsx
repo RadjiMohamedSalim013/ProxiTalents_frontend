@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createEntreprise } from '../../services/entreprise.service';
+
 const FormulaireEntreprise: React.FC = () => {
   const navigate = useNavigate();
 
@@ -41,71 +42,76 @@ const FormulaireEntreprise: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-4xl mx-auto p-6 space-y-6">
-      <h2 className="text-2xl font-bold mb-4">Créer un profil entreprise</h2>
-
-      <input
-        className="w-full border p-2"
-        placeholder="Nom"
-        value={nom}
-        onChange={(e) => setNom(e.target.value)}
-        required
-      />
-
-      <textarea
-        className="w-full border p-2"
-        placeholder="Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        required
-      />
-
-      <input
-        className="w-full border p-2"
-        placeholder="Adresse"
-        value={adresse}
-        onChange={(e) => setAdresse(e.target.value)}
-        required
-      />
-
-      <input
-        className="w-full border p-2"
-        placeholder="Ville"
-        value={ville}
-        onChange={(e) => setVille(e.target.value)}
-        required
-      />
-
-      <input
-        className="w-full border p-2"
-        placeholder="Téléphone"
-        value={telephone}
-        onChange={(e) => setTelephone(e.target.value)}
-      />
-
-      <input
-        className="w-full border p-2"
-        placeholder="Email"
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />
-
-      <input
-        className="w-full border p-2"
-        placeholder="Secteur d'activité"
-        value={secteurActivite}
-        onChange={(e) => setSecteurActivite(e.target.value)}
-      />
-
-      <button
-        type="submit"
-        className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
+    <div className="min-h-screen bg-gray-100 py-10 px-4">
+      <form
+        onSubmit={handleSubmit}
+        className="max-w-4xl mx-auto bg-white rounded-2xl shadow-md p-10 space-y-6"
       >
-        Créer le profil
-      </button>
-    </form>
+        <h2 className="text-3xl font-semibold text-gray-800">Créer un profil entreprise</h2>
+
+        <input
+          className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+          placeholder="Nom"
+          value={nom}
+          onChange={(e) => setNom(e.target.value)}
+          required
+        />
+
+        <textarea
+          className="w-full border border-gray-300 p-3 rounded-lg h-28 resize-none focus:outline-none focus:ring-2 focus:ring-orange-500"
+          placeholder="Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          required
+        />
+
+        <input
+          className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+          placeholder="Adresse"
+          value={adresse}
+          onChange={(e) => setAdresse(e.target.value)}
+          required
+        />
+
+        <input
+          className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+          placeholder="Ville"
+          value={ville}
+          onChange={(e) => setVille(e.target.value)}
+          required
+        />
+
+        <input
+          className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+          placeholder="Téléphone"
+          value={telephone}
+          onChange={(e) => setTelephone(e.target.value)}
+        />
+
+        <input
+          className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+          placeholder="Email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+
+        <input
+          className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+          placeholder="Secteur d'activité"
+          value={secteurActivite}
+          onChange={(e) => setSecteurActivite(e.target.value)}
+        />
+
+        <button
+          type="submit"
+          className="bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300 font-semibold"
+        >
+          Créer le profil
+        </button>
+      </form>
+    </div>
   );
 };
 

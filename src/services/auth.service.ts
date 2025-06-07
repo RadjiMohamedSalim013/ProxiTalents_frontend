@@ -4,7 +4,6 @@ import type  { ChangePasswordRequest, ForgotPasswordRequest, ForgotPasswordRespo
 
 // Fonction pour enregistrer un nouvel utilisateur
 export const register = async (data: IRegisterInput) => {
-  // Envoyer directement les données sans renommer le champ motDePasse
   const dataWithRole: IRegisterData = { ...data, role: 'utilisateur' };
   const response = await API.post(`/auth/register`, dataWithRole);
   console.log(response.data);

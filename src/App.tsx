@@ -45,7 +45,7 @@ const App = () => (
           </PrivateRoute>
         }
       />
-      <Route path="/mot-de-passe-oublie" element={<ForgotPassword />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password/:token" element={<ResetPassword />} />
       <Route path="/changer-mot-de-passe" element={<ChangePassword />} />
       <Route path="/" element={<AccueilPage />} />

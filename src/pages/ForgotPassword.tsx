@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { forgotPassword } from '../services/auth.service'; // fonction pour envoyer email reset
+import { forgotPassword } from '../services/auth.service'; // 
 import type { ForgotPasswordRequest } from '../types/users.types';
 
 export const ForgotPassword = () => {
