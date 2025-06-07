@@ -2,7 +2,7 @@
 export interface IRegisterData {
   nom: string;
   email: string;
-  motDepasse: string;
+  motDePasse: string;
   role: 'utilisateur' | 'prestataire' | 'entreprise';
 }
 
