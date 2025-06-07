@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { register } from '../services/auth.service';
 import type { IRegisterInput } from '../types/users.types';
 import { FiUser, FiMail, FiLock, FiLogIn } from 'react-icons/fi';
 
 export const Register = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState<IRegisterInput>({
     nom: '',
     email: '',
@@ -22,6 +24,7 @@ export const Register = () => {
     try {
       const res = await register(form);
       setMessage({ text: (res as { message?: string }).message || 'Inscription réussie !', type: 'success' });
+      navigate('/login');
     } catch (error: unknown) {
       setMessage({ 
         text: (error as { response?: { data?: { message?: string } } }).response?.data?.message || 'Erreur lors de l\'inscription', 
