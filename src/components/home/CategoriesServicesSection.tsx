@@ -39,12 +39,7 @@ const CategoriesServicesSection = () => {
           ))}
         </div>
 
-        {/* Bouton optionnel */}
-        <div className="text-center mt-12">
-          <button className="px-6 py-3 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors duration-300 font-medium shadow-sm hover:shadow-md">
-            Trouver un professionnel
-          </button>
-        </div>
+
       </div>
     </section>
   );
